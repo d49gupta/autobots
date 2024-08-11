@@ -17,14 +17,16 @@ find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
 
-add_executable(talker src/publisher_lambda_function.cpp)
-ament_target_dependencies(talker rclcpp std_msgs)
-add_executable(listener src/subscriber_lambda_function.cpp)
-ament_target_dependencies(listener rclcpp std_msgs)
+add_executable(autonomous_car_project 
+    src/publisher_lambda_function.cpp
+    src/subscriber_lambda_function.cpp
+    src/main.cpp
+)
+ament_target_dependencies(autonomous_car_project rclcpp std_msgs)
 
 install(TARGETS
-  talker
-  listener
-  DESTINATION lib/${PROJECT_NAME})
+  autonomous_car_project
+  DESTINATION lib/${PROJECT_NAME}
+)
 
 ament_package()

@@ -7,11 +7,3 @@ MinimalSubscriber::MinimalSubscriber() : Node("minimal_subscriber") {
   };
   subscription_ = this->create_subscription<std_msgs::msg::String>("topic", 10, topic_callback);
 }
-
-int main(int argc, char * argv[])
-{
-  rclcpp::init(argc, argv);
-  rclcpp::spin(std::make_shared<MinimalSubscriber>());
-  rclcpp::shutdown();
-  return 0;
-}

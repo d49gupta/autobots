@@ -11,11 +11,3 @@ MinimalPublisher:: MinimalPublisher() : Node("minimal_publisher"), count_(0) {
   };
   timer_ = this->create_wall_timer(500ms, timer_callback);
 }
-
-int main(int argc, char * argv[])
-{
-  rclcpp::init(argc, argv);
-  rclcpp::spin(std::make_shared<MinimalPublisher>());
-  rclcpp::shutdown();
-  return 0;
-}
