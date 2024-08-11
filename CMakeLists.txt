@@ -17,15 +17,22 @@ find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
 
-add_executable(autonomous_car_project 
-    src/publisher_lambda_function.cpp
-    src/subscriber_lambda_function.cpp
-    src/main.cpp
+add_executable(car_publisher 
+  src/publisher_lambda_function.cpp
+  src/main_publisher.cpp
 )
-ament_target_dependencies(autonomous_car_project rclcpp std_msgs)
+
+add_executable(car_subscriber
+  src/subscriber_lambda_function.cpp
+  src/main_subscriber.cpp
+)
+
+ament_target_dependencies(car_publisher rclcpp std_msgs)
+ament_target_dependencies(car_subscriber rclcpp std_msgs)
 
 install(TARGETS
-  autonomous_car_project
+  car_publisher
+  car_subscriber
   DESTINATION lib/${PROJECT_NAME}
 )
 
