@@ -12,7 +12,11 @@ endif()
 
 include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/include
+    ${OpenCV_INCLUDE_DIRS}
 )
+
+set(OpenCV_DIR $ENV{OpenCV_DIR})
+find_package(OpenCV REQUIRED core imgproc imgcodecs highgui opencv_dnn)
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
@@ -27,12 +31,21 @@ add_executable(car_subscriber
   src/main_subscriber.cpp
 )
 
+add_executable(image_detection
+  src/image_detection.cpp
+)
+
+target_link_libraries(image_detection 
+    ${OpenCV_LIBS}
+)
+
 ament_target_dependencies(car_publisher rclcpp std_msgs)
 ament_target_dependencies(car_subscriber rclcpp std_msgs)
 
 install(TARGETS
   car_publisher
   car_subscriber
+  image_detection
   DESTINATION lib/${PROJECT_NAME}
 )
 
