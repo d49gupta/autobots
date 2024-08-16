@@ -11,7 +11,8 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
 endif()
 
 include_directories(
-    ${CMAKE_CURRENT_SOURCE_DIR}/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/input_nodes
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/output_nodes
     ${OpenCV_INCLUDE_DIRS}
     /usr/include
 )
@@ -23,18 +24,18 @@ find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
 
 add_executable(car_publisher 
-  src/publisher_lambda_function.cpp
-  src/imu_publisher.cpp
-  src/main_publisher.cpp
+  src/input_nodes/publisher_lambda_function.cpp
+  src/input_nodes/imu_publisher.cpp
+  src/input_nodes/main_publisher.cpp
 )
 
 add_executable(car_subscriber
-  src/subscriber_lambda_function.cpp
-  src/main_subscriber.cpp
+  src/output_nodes/subscriber_lambda_function.cpp
+  src/output_nodes/main_subscriber.cpp
 )
 
 add_executable(image_detection
-  src/image_detection.cpp
+  src/output_nodes/image_detection.cpp
 )
 
 target_link_libraries(image_detection 
