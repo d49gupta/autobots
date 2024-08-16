@@ -23,6 +23,7 @@ find_package(std_msgs REQUIRED)
 
 add_executable(car_publisher 
   src/publisher_lambda_function.cpp
+  src/imu_publisher.cpp
   src/main_publisher.cpp
 )
 
