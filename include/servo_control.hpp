@@ -12,7 +12,9 @@ class ServoMotor {
 public:
     ServoMotor() : chip(nullptr), line(nullptr) {}
     bool setup();
-    void move(int angle);
+    void move(int time, int angle);
+    void setHigh();
+    viod setLow();
     void destroy();
 private:
     gpiod_chip *chip;

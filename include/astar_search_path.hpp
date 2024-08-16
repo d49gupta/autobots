@@ -26,3 +26,5 @@ double calculateHValue(int row, int col, Pair dest);
 void tracePath(std::vector<std::vector<cell>> cellDetails, Pair dest);
 void aStarSearch(std::vector<std::vector<int>> grid, Pair src, Pair dest);
 void useGlobalVariables();
+std::vector<std::vector<int>> createGrid(int x, int y);
+void updateGridWithObstacle(std::vector<std::vector<int>> &grid, Pair Obstacle)
