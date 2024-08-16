@@ -13,6 +13,7 @@ endif()
 include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/include
     ${OpenCV_INCLUDE_DIRS}
+    /usr/include
 )
 
 set(OpenCV_DIR $ENV{OpenCV_DIR})
