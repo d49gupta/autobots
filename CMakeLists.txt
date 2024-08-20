@@ -22,6 +22,7 @@ find_package(OpenCV REQUIRED core imgproc imgcodecs highgui opencv_dnn)
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
+find_library(GPIO_LIB NAMES gpiod PATHS /usr/lib/aarch64-linux-gnu)
 
 add_executable(car_publisher 
   src/input_nodes/publisher_lambda_function.cpp
@@ -35,11 +36,13 @@ add_executable(car_subscriber
 )
 
 add_executable(image_detection
-  src/output_nodes/image_detection.cpp
+  src/output_nodes/servo_control.cpp
+  src/output_nodes/main_gpio.cpp
 )
 
 target_link_libraries(image_detection 
     ${OpenCV_LIBS}
+    ${GPIO_LIB}
 )
 
 ament_target_dependencies(car_publisher rclcpp std_msgs)

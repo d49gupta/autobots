@@ -11,10 +11,10 @@ using namespace std;
 class ServoMotor {
 public:
     ServoMotor() : chip(nullptr), line(nullptr) {}
-    bool setup();
+    bool setup(int pwm_pin);
     void move(int time, int angle);
     void setHigh();
-    viod setLow();
+    void setLow();
     void destroy();
 private:
     gpiod_chip *chip;

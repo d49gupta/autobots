@@ -1,8 +1,8 @@
 
-#include <GPIO_Control.hpp>
+#include "servo_control.hpp"
 
-bool ServoMotor::setup(std::string chip_name, int pwm_pin) {
-    chip = gpiod_chip_open_by_name(chip_name);
+bool ServoMotor::setup(int pwm_pin) {
+    chip = gpiod_chip_open_by_name(CHIP_NAME);
     if (!chip) {
         std::cerr << "Failed to open GPIO chip" << std::endl;
         return false;
