@@ -2,6 +2,7 @@
 
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/string.hpp"
+#include "std_msgs/msg/float32_multi_array.hpp"
 
 class MinimalSubscriber : public rclcpp::Node
 {
@@ -19,6 +20,6 @@ public:
     ImuSubscriber();
 
 private:
-  rclcpp::Subscription<std_msgs::msg::String>::SharedPtr subscription_;
+  rclcpp::Subscription<std_msgs::msg::Float32MultiArray>::SharedPtr subscription_;
   
 };
