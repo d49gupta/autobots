@@ -14,4 +14,4 @@ private:
     int tail;
     int size;
     int count;
-}
+};

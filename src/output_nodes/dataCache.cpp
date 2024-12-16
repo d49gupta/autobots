@@ -1,4 +1,5 @@
 #include "dataCache.hpp"
+#include <iostream>
 
 bool dataCache::isFull() {
     return this->count == this->size;
@@ -12,7 +13,7 @@ void dataCache::enqueue(double data) {
     buffer[head] = data;
     head = (head + 1) % size;
 
-    if isFull() {
+    if (isFull()) {
         tail = (tail + 1) % size;
     }
     else {
@@ -20,12 +21,23 @@ void dataCache::enqueue(double data) {
     }
 }
 
-dobule dataCache::newestValue() {
-    if !isEmpty() {
-        newestIndex = (head - 1) % size;
+double dataCache::newestValue() {
+    if (!isEmpty()) {
+        int newestIndex = (head - 1 + size) % size;
         return buffer[newestIndex];
     }
     else {
-        return nullptr;
+        return -1;
     }
+}
+
+int main() {
+	dataCache circularBuffer(3);
+    circularBuffer.enqueue(10);
+    circularBuffer.enqueue(9);
+    std::cout<<circularBuffer.newestValue()<<std::endl;
+    circularBuffer.enqueue(8);
+    std::cout<<circularBuffer.newestValue()<<std::endl;
+
+    return 0;
 }
