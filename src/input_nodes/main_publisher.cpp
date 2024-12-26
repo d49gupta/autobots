@@ -4,16 +4,16 @@
 #include <string>
 #include <thread>
 
-void run_minimial_publisher()
+void run_counter_publisher()
 {
-  auto minimal_publisher = std::make_shared<MinimalPublisher>();
-  rclcpp::spin(minimal_publisher);
+  auto counter_publisher = std::make_shared<counterPublisher>("counter_publisher", "counter_topic");
+  rclcpp::spin(counter_publisher);
   rclcpp::shutdown();
 }
 
 // void run_imu_publisher()
 // {
-//   auto imu_publisher = std::make_shared<ImuPublisher>();
+//   auto imu_publisher = std::make_shared<ImuPublisher>("imu_publisher", "imu_topic");
 //   rclcpp::spin(imu_publisher);
 //   rclcpp::shutdown();
 // }
@@ -21,10 +21,10 @@ void run_minimial_publisher()
 int main(int argc, char * argv[])
 {
   rclcpp::init(argc, argv);
-  std::thread minimal_publisher_thread(run_minimial_publisher);
+  std::thread counter_publisher_thread(run_counter_publisher);
   // std::thread imu_publisher_thread(run_imu_publisher);
 
-  minimal_publisher_thread.join();
+  counter_publisher_thread.join();
   // imu_publisher_thread.join();
 
   return 0;

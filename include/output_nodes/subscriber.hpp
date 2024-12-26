@@ -6,10 +6,10 @@
 #include "std_msgs/msg/float32_multi_array.hpp"
 #include "std_msgs/msg/int32.hpp"
 
-class MinimalSubscriber : public rclcpp::Node
+class counterSubscriber : public rclcpp::Node
 {
 public:
-  MinimalSubscriber(int size);
+  counterSubscriber(std::string nodeName, int size, std::string topicName);
   
 private:
   rclcpp::Subscription<std_msgs::msg::Int32>::SharedPtr subscription_;
@@ -19,9 +19,9 @@ private:
 class ImuSubscriber : public rclcpp::Node
 {
 public:
-  ImuSubscriber();
+  ImuSubscriber(std::string nodeName, int size, std::string topicName);
 
 private:
   rclcpp::Subscription<std_msgs::msg::Float32MultiArray>::SharedPtr subscription_;
-  
+  dataCache<int> imuCache;
 };

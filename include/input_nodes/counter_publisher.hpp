@@ -8,10 +8,10 @@
 
 using namespace std::chrono_literals;
 
-class MinimalPublisher : public rclcpp::Node
+class counterPublisher : public rclcpp::Node
 {
 public:
-  MinimalPublisher();
+  counterPublisher(std::string nodeName, std::string topicName);
 
 private:
   rclcpp::TimerBase::SharedPtr timer_;

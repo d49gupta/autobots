@@ -1,7 +1,7 @@
 #include "counter_publisher.hpp"
 
-MinimalPublisher::MinimalPublisher() : Node("minimal_publisher"), count_(0) {
-  publisher_ = this->create_publisher<std_msgs::msg::Int32>("topic", 10);
+counterPublisher::counterPublisher(std::string nodeName, std::string topicName) : Node(nodeName), count_(0) {
+  publisher_ = this->create_publisher<std_msgs::msg::Int32>(topicName, 10);
   auto timer_callback =
     [this]() -> void {
       auto message = std_msgs::msg::Int32();

@@ -3,8 +3,8 @@
 int main(int argc, char * argv[])
 {
   rclcpp::init(argc, argv);
-  auto first_subscriber = std::make_shared<MinimalSubscriber>(25);
-  // auto second_subscriber = std::make_shared<ImuSubscriber>();
+  auto first_subscriber = std::make_shared<counterSubscriber>("counter_subscriber", 25, "counter_topic");
+  // auto second_subscriber = std::make_shared<ImuSubscriber>("imu_subscriber", 25, "imu_topic");
 
   rclcpp::executors::MultiThreadedExecutor executor;
   executor.add_node(first_subscriber);
