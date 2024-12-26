@@ -9,18 +9,17 @@
 class MinimalSubscriber : public rclcpp::Node
 {
 public:
-    MinimalSubscriber();
-
+  MinimalSubscriber(int size);
+  
 private:
   rclcpp::Subscription<std_msgs::msg::Int32>::SharedPtr subscription_;
-  dataCache MinimalSubscriberBuffer = dataCache(25);
-  
+  dataCache<int> counterCache;
 };
 
 class ImuSubscriber : public rclcpp::Node
 {
 public:
-    ImuSubscriber();
+  ImuSubscriber();
 
 private:
   rclcpp::Subscription<std_msgs::msg::Float32MultiArray>::SharedPtr subscription_;

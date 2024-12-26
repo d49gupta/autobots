@@ -3,7 +3,7 @@
 int main(int argc, char * argv[])
 {
   rclcpp::init(argc, argv);
-  auto first_subscriber = std::make_shared<MinimalSubscriber>();
+  auto first_subscriber = std::make_shared<MinimalSubscriber>(25);
   // auto second_subscriber = std::make_shared<ImuSubscriber>();
 
   rclcpp::executors::MultiThreadedExecutor executor;
