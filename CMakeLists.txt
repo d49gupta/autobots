@@ -34,15 +34,12 @@ add_executable(car_publisher
 add_executable(car_subscriber
   src/output_nodes/subscriber_lambda_function.cpp
   src/output_nodes/main_subscriber.cpp
+  src/output_nodes/dataCache.cpp
 )
 
 add_executable(gpio_control
   src/output_nodes/servo_control.cpp
   src/output_nodes/main_gpio.cpp
-)
-
-add_executable(dataCache
-  src/output_nodes/dataCache.cpp
 )
 
 target_link_libraries(car_publisher
@@ -61,8 +58,7 @@ install(TARGETS
   car_publisher
   car_subscriber
   gpio_control
-  dataCache
   DESTINATION lib/${PROJECT_NAME}
 )
 
-# ament_package()
+ament_package()

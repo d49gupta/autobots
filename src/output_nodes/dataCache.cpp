@@ -30,14 +30,3 @@ double dataCache::newestValue() {
         return -1;
     }
 }
-
-int main() {
-	dataCache circularBuffer(3);
-    circularBuffer.enqueue(10);
-    circularBuffer.enqueue(9);
-    std::cout<<circularBuffer.newestValue()<<std::endl;
-    circularBuffer.enqueue(8);
-    std::cout<<circularBuffer.newestValue()<<std::endl;
-
-    return 0;
-}
