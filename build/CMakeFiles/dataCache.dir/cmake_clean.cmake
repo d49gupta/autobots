@@ -1,10 +1,8 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/dataCache.dir/src/output_nodes/dataCache.cpp.obj"
-  "CMakeFiles/dataCache.dir/src/output_nodes/dataCache.cpp.obj.d"
-  "dataCache.exe"
-  "dataCache.exe.manifest"
+  "CMakeFiles/dataCache.dir/src/output_nodes/dataCache.cpp.o"
+  "CMakeFiles/dataCache.dir/src/output_nodes/dataCache.cpp.o.d"
+  "dataCache"
   "dataCache.pdb"
-  "libdataCache.dll.a"
 )
 
 # Per-language clean rules from dependency scanning.

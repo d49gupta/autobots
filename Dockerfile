@@ -13,14 +13,15 @@ RUN apt-get update && apt-get install -y \
     ros-humble-gazebo-ros-pkgs \
     && rm -rf /var/lib/apt/lists/*
 
-RUN sudo apt install ros-humble-demo-nodes-cpp ros-humble-demo-nodes-py
+# Download demo ros2 nodes to test
+RUN apt-get update && apt-get install -y ros-humble-demo-nodes-cpp ros-humble-demo-nodes-py
 
 # Install dependencies
 RUN apt-get update && apt-get install -y \
     libopencv-dev \
     i2c-tools \
-    libi2c \
-    libgpiod \
+    libi2c-dev \
+    libgpiod-dev \
     nano
 
 # Set up a ROS workspace

@@ -15,54 +15,52 @@ include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/include/output_nodes
     ${OpenCV_INCLUDE_DIRS}
     /usr/include
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/input_nodes/MPU6050-C-CPP-Library-for-Raspberry-Pi
 )
 
 set(OpenCV_DIR $ENV{OpenCV_DIR})
-# find_package(OpenCV REQUIRED core imgproc imgcodecs highgui opencv_dnn)
-# find_package(ament_cmake REQUIRED)
-# find_package(rclcpp REQUIRED)
-# find_package(std_msgs REQUIRED)
-# find_library(GPIO_LIB NAMES gpiod PATHS /usr/lib/aarch64-linux-gnu)
-# find_library(i2c_LIB NAMES i2c PATHS /usr/lib/aarch64-linux-gnu)
+find_package(OpenCV REQUIRED core imgproc imgcodecs highgui opencv_dnn)
+find_package(ament_cmake REQUIRED)
+find_package(rclcpp REQUIRED)
+find_package(std_msgs REQUIRED)
+find_library(GPIO_LIB NAMES gpiod PATHS /usr/lib/aarch64-linux-gnu)
+find_library(i2c_LIB NAMES i2c PATHS /usr/lib/aarch64-linux-gnu)
 
-# add_executable(car_publisher 
-#   src/input_nodes/publisher_lambda_function.cpp
-#   src/input_nodes/imu_publisher.cpp
-#   src/input_nodes/main_publisher.cpp
-#   ${CMAKE_CURRENT_SOURCE_DIR}/src/input_nodes/MPU6050-C-CPP-Library-for-Raspberry-Pi/MPU6050.cpp
-# )
+add_executable(car_publisher 
+  src/input_nodes/publisher_lambda_function.cpp
+  src/input_nodes/imu_publisher.cpp
+  src/input_nodes/main_publisher.cpp
+)
 
-# add_executable(car_subscriber
-#   src/output_nodes/subscriber_lambda_function.cpp
-#   src/output_nodes/main_subscriber.cpp
-# )
+add_executable(car_subscriber
+  src/output_nodes/subscriber_lambda_function.cpp
+  src/output_nodes/main_subscriber.cpp
+)
 
-# add_executable(gpio_control
-#   src/output_nodes/servo_control.cpp
-#   src/output_nodes/main_gpio.cpp
-# )
+add_executable(gpio_control
+  src/output_nodes/servo_control.cpp
+  src/output_nodes/main_gpio.cpp
+)
 
 add_executable(dataCache
   src/output_nodes/dataCache.cpp
 )
 
-# target_link_libraries(car_publisher
-#     ${i2c_LIB}
-# )
+target_link_libraries(car_publisher
+    ${i2c_LIB}
+)
 
-# target_link_libraries(gpio_control 
-#     ${OpenCV_LIBS}
-#     ${GPIO_LIB}
-# )
+target_link_libraries(gpio_control 
+    ${OpenCV_LIBS}
+    ${GPIO_LIB}
+)
 
-# ament_target_dependencies(car_publisher rclcpp std_msgs)
-# ament_target_dependencies(car_subscriber rclcpp std_msgs)
+ament_target_dependencies(car_publisher rclcpp std_msgs)
+ament_target_dependencies(car_subscriber rclcpp std_msgs)
 
 install(TARGETS
-  # car_publisher
-  # car_subscriber
-  # gpio_control
+  car_publisher
+  car_subscriber
+  gpio_control
   dataCache
   DESTINATION lib/${PROJECT_NAME}
 )
