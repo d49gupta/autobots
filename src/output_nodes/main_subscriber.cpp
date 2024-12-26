@@ -6,7 +6,7 @@ int main(int argc, char * argv[])
   auto first_subscriber = std::make_shared<MinimalSubscriber>();
   auto second_subscriber = std::make_shared<ImuSubscriber>();
 
-  rclcpp::executors::SingleThreadedExecutor executor;
+  rclcpp::executors::MultiThreadedExecutor executor;
   executor.add_node(first_subscriber);
   executor.add_node(second_subscriber);
 
