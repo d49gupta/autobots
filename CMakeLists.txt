@@ -27,7 +27,7 @@ find_library(i2c_LIB NAMES i2c PATHS /usr/lib/aarch64-linux-gnu)
 
 add_executable(car_publisher 
   src/input_nodes/publisher_lambda_function.cpp
-  src/input_nodes/imu_publisher.cpp
+  # src/input_nodes/imu_publisher.cpp
   src/input_nodes/main_publisher.cpp
 )
 
