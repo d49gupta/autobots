@@ -12,7 +12,7 @@ using namespace std::chrono_literals;
 class ImuPublisher : public rclcpp::Node
 {
 public:
-  ImuPublisher();
+  ImuPublisher(std::string nodeName, std::string topicName);
   void getIMUData();
 
 private:
