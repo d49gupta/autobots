@@ -83,24 +83,10 @@ CMakeFiles/car_publisher.dir/src/input_nodes/publisher_lambda_function.cpp.s: cm
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/car_publisher.dir/src/input_nodes/publisher_lambda_function.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /root/ros2_ws/src/src/input_nodes/publisher_lambda_function.cpp -o CMakeFiles/car_publisher.dir/src/input_nodes/publisher_lambda_function.cpp.s
 
-CMakeFiles/car_publisher.dir/src/input_nodes/imu_publisher.cpp.o: CMakeFiles/car_publisher.dir/flags.make
-CMakeFiles/car_publisher.dir/src/input_nodes/imu_publisher.cpp.o: ../src/input_nodes/imu_publisher.cpp
-CMakeFiles/car_publisher.dir/src/input_nodes/imu_publisher.cpp.o: CMakeFiles/car_publisher.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/ros2_ws/src/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/car_publisher.dir/src/input_nodes/imu_publisher.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/car_publisher.dir/src/input_nodes/imu_publisher.cpp.o -MF CMakeFiles/car_publisher.dir/src/input_nodes/imu_publisher.cpp.o.d -o CMakeFiles/car_publisher.dir/src/input_nodes/imu_publisher.cpp.o -c /root/ros2_ws/src/src/input_nodes/imu_publisher.cpp
-
-CMakeFiles/car_publisher.dir/src/input_nodes/imu_publisher.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/car_publisher.dir/src/input_nodes/imu_publisher.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /root/ros2_ws/src/src/input_nodes/imu_publisher.cpp > CMakeFiles/car_publisher.dir/src/input_nodes/imu_publisher.cpp.i
-
-CMakeFiles/car_publisher.dir/src/input_nodes/imu_publisher.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/car_publisher.dir/src/input_nodes/imu_publisher.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /root/ros2_ws/src/src/input_nodes/imu_publisher.cpp -o CMakeFiles/car_publisher.dir/src/input_nodes/imu_publisher.cpp.s
-
 CMakeFiles/car_publisher.dir/src/input_nodes/main_publisher.cpp.o: CMakeFiles/car_publisher.dir/flags.make
 CMakeFiles/car_publisher.dir/src/input_nodes/main_publisher.cpp.o: ../src/input_nodes/main_publisher.cpp
 CMakeFiles/car_publisher.dir/src/input_nodes/main_publisher.cpp.o: CMakeFiles/car_publisher.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/ros2_ws/src/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/car_publisher.dir/src/input_nodes/main_publisher.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/ros2_ws/src/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/car_publisher.dir/src/input_nodes/main_publisher.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/car_publisher.dir/src/input_nodes/main_publisher.cpp.o -MF CMakeFiles/car_publisher.dir/src/input_nodes/main_publisher.cpp.o.d -o CMakeFiles/car_publisher.dir/src/input_nodes/main_publisher.cpp.o -c /root/ros2_ws/src/src/input_nodes/main_publisher.cpp
 
 CMakeFiles/car_publisher.dir/src/input_nodes/main_publisher.cpp.i: cmake_force
@@ -114,14 +100,12 @@ CMakeFiles/car_publisher.dir/src/input_nodes/main_publisher.cpp.s: cmake_force
 # Object files for target car_publisher
 car_publisher_OBJECTS = \
 "CMakeFiles/car_publisher.dir/src/input_nodes/publisher_lambda_function.cpp.o" \
-"CMakeFiles/car_publisher.dir/src/input_nodes/imu_publisher.cpp.o" \
 "CMakeFiles/car_publisher.dir/src/input_nodes/main_publisher.cpp.o"
 
 # External object files for target car_publisher
 car_publisher_EXTERNAL_OBJECTS =
 
 car_publisher: CMakeFiles/car_publisher.dir/src/input_nodes/publisher_lambda_function.cpp.o
-car_publisher: CMakeFiles/car_publisher.dir/src/input_nodes/imu_publisher.cpp.o
 car_publisher: CMakeFiles/car_publisher.dir/src/input_nodes/main_publisher.cpp.o
 car_publisher: CMakeFiles/car_publisher.dir/build.make
 car_publisher: /usr/lib/x86_64-linux-gnu/libi2c.so
@@ -188,7 +172,7 @@ car_publisher: /opt/ros/humble/lib/librosidl_runtime_c.so
 car_publisher: /opt/ros/humble/lib/librcutils.so
 car_publisher: /usr/lib/x86_64-linux-gnu/libpython3.10.so
 car_publisher: CMakeFiles/car_publisher.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/root/ros2_ws/src/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable car_publisher"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/root/ros2_ws/src/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable car_publisher"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/car_publisher.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

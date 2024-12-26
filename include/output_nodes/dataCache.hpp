@@ -9,9 +9,9 @@ public:
     double newestValue();
 
 private:
+    int size;
     std::vector<double> buffer = {};
     int head;
     int tail;
-    int size;
     int count;
 };

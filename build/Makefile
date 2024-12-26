@@ -236,43 +236,6 @@ gpio_control/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/gpio_control.dir/build.make CMakeFiles/gpio_control.dir/build
 .PHONY : gpio_control/fast
 
-#=============================================================================
-# Target rules for targets named dataCache
-
-# Build rule for target.
-dataCache: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 dataCache
-.PHONY : dataCache
-
-# fast build rule for target.
-dataCache/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/dataCache.dir/build.make CMakeFiles/dataCache.dir/build
-.PHONY : dataCache/fast
-
-src/input_nodes/imu_publisher.o: src/input_nodes/imu_publisher.cpp.o
-.PHONY : src/input_nodes/imu_publisher.o
-
-# target to build an object file
-src/input_nodes/imu_publisher.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/car_publisher.dir/build.make CMakeFiles/car_publisher.dir/src/input_nodes/imu_publisher.cpp.o
-.PHONY : src/input_nodes/imu_publisher.cpp.o
-
-src/input_nodes/imu_publisher.i: src/input_nodes/imu_publisher.cpp.i
-.PHONY : src/input_nodes/imu_publisher.i
-
-# target to preprocess a source file
-src/input_nodes/imu_publisher.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/car_publisher.dir/build.make CMakeFiles/car_publisher.dir/src/input_nodes/imu_publisher.cpp.i
-.PHONY : src/input_nodes/imu_publisher.cpp.i
-
-src/input_nodes/imu_publisher.s: src/input_nodes/imu_publisher.cpp.s
-.PHONY : src/input_nodes/imu_publisher.s
-
-# target to generate assembly for a file
-src/input_nodes/imu_publisher.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/car_publisher.dir/build.make CMakeFiles/car_publisher.dir/src/input_nodes/imu_publisher.cpp.s
-.PHONY : src/input_nodes/imu_publisher.cpp.s
-
 src/input_nodes/main_publisher.o: src/input_nodes/main_publisher.cpp.o
 .PHONY : src/input_nodes/main_publisher.o
 
@@ -326,7 +289,7 @@ src/output_nodes/dataCache.o: src/output_nodes/dataCache.cpp.o
 
 # target to build an object file
 src/output_nodes/dataCache.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/dataCache.dir/build.make CMakeFiles/dataCache.dir/src/output_nodes/dataCache.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/car_subscriber.dir/build.make CMakeFiles/car_subscriber.dir/src/output_nodes/dataCache.cpp.o
 .PHONY : src/output_nodes/dataCache.cpp.o
 
 src/output_nodes/dataCache.i: src/output_nodes/dataCache.cpp.i
@@ -334,7 +297,7 @@ src/output_nodes/dataCache.i: src/output_nodes/dataCache.cpp.i
 
 # target to preprocess a source file
 src/output_nodes/dataCache.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/dataCache.dir/build.make CMakeFiles/dataCache.dir/src/output_nodes/dataCache.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/car_subscriber.dir/build.make CMakeFiles/car_subscriber.dir/src/output_nodes/dataCache.cpp.i
 .PHONY : src/output_nodes/dataCache.cpp.i
 
 src/output_nodes/dataCache.s: src/output_nodes/dataCache.cpp.s
@@ -342,7 +305,7 @@ src/output_nodes/dataCache.s: src/output_nodes/dataCache.cpp.s
 
 # target to generate assembly for a file
 src/output_nodes/dataCache.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/dataCache.dir/build.make CMakeFiles/dataCache.dir/src/output_nodes/dataCache.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/car_subscriber.dir/build.make CMakeFiles/car_subscriber.dir/src/output_nodes/dataCache.cpp.s
 .PHONY : src/output_nodes/dataCache.cpp.s
 
 src/output_nodes/main_gpio.o: src/output_nodes/main_gpio.cpp.o
@@ -458,11 +421,7 @@ help:
 	@echo "... uninstall"
 	@echo "... car_publisher"
 	@echo "... car_subscriber"
-	@echo "... dataCache"
 	@echo "... gpio_control"
-	@echo "... src/input_nodes/imu_publisher.o"
-	@echo "... src/input_nodes/imu_publisher.i"
-	@echo "... src/input_nodes/imu_publisher.s"
 	@echo "... src/input_nodes/main_publisher.o"
 	@echo "... src/input_nodes/main_publisher.i"
 	@echo "... src/input_nodes/main_publisher.s"
