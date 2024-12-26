@@ -26,14 +26,14 @@ find_library(GPIO_LIB NAMES gpiod PATHS /usr/lib/aarch64-linux-gnu)
 find_library(i2c_LIB NAMES i2c PATHS /usr/lib/aarch64-linux-gnu)
 
 add_executable(car_publisher 
-  src/input_nodes/publisher_lambda_function.cpp
+  src/input_nodes/counter_publisher.cpp
   # src/input_nodes/imu_publisher.cpp
   src/input_nodes/main_publisher.cpp
 )
 
 add_executable(car_subscriber
-  src/output_nodes/subscriber_lambda_function.cpp
-  src/output_nodes/main_subscriber.cpp
+  src/output_nodes/subscriber.cpp
+  src/output_nodes/main.cpp
   src/output_nodes/dataCache.cpp
 )
 

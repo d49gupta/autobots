@@ -9,7 +9,7 @@ bool dataCache::isEmpty() {
     return this->count == 0;
 }
 
-void dataCache::enqueue(double data) {
+void dataCache::enqueue(int data) {
     buffer[head] = data;
     head = (head + 1) % size;
 
@@ -21,7 +21,7 @@ void dataCache::enqueue(double data) {
     }
 }
 
-double dataCache::newestValue() {
+int dataCache::newestValue() {
     if (!isEmpty()) {
         int newestIndex = (head - 1 + size) % size;
         return buffer[newestIndex];

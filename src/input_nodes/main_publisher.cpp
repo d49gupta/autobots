@@ -1,4 +1,4 @@
-#include "publisher_lamda_function.hpp"
+#include "counter_publisher.hpp"
 #include "imu_publisher.hpp"
 #include <memory>
 #include <string>
@@ -22,11 +22,9 @@ int main(int argc, char * argv[])
 {
   rclcpp::init(argc, argv);
   std::thread minimal_publisher_thread(run_minimial_publisher);
-  std::thread minimal_publisher_thread_copy(run_minimial_publisher);
   // std::thread imu_publisher_thread(run_imu_publisher);
 
   minimal_publisher_thread.join();
-  minimal_publisher_thread_copy.join();
   // imu_publisher_thread.join();
 
   return 0;
