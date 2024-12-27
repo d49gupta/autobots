@@ -21,11 +21,14 @@ void run_counter_publisher()
 int main(int argc, char * argv[])
 {
   rclcpp::init(argc, argv);
-  std::thread counter_publisher_thread(run_counter_publisher);
-  // std::thread imu_publisher_thread(run_imu_publisher);
+  auto counter_publisher1 = std::make_shared<counterPublisher>("counter_publisher1", "counter_topic1");
+  auto counter_publisher2 = std::make_shared<counterPublisher>("counter_publisher2", "counter_topic2");
+  rclcpp::executors::MultiThreadedExecutor executor;
+  executor.add_node(counter_publisher1);
+  executor.add_node(counter_publisher2);
 
-  counter_publisher_thread.join();
-  // imu_publisher_thread.join();
+  executor.spin();
+  rclcpp::shutdown();
 
   return 0;
 }

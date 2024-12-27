@@ -1,7 +1,6 @@
 #include "imu_publisher.hpp"
 
-ImuPublisher::ImuPublisher(std::string nodeName, std::string topicName) : Node(nodeName), count_(0), imu_device(0x68) { //TODO: chagne topic name and node name to variable passed in constructor
-  sleep(1);
+ImuPublisher::ImuPublisher(std::string nodeName, std::string topicName) : Node(nodeName), count_(0), imu_device(0x68) {
   publisher_ = this->create_publisher<std_msgs::msg::Float32MultiArray>(topicName, 10);
   timer_data = this->create_wall_timer(500ms, std::bind(&ImuPublisher::getIMUData, this));
 }
