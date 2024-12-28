@@ -37,8 +37,8 @@ add_executable(car_subscriber
 )
 
 add_executable(gpio_control
-  src/output_nodes/servo_control.cpp
-  src/output_nodes/main_gpio.cpp
+  src/output_nodes/extra/servo_control.cpp
+  src/output_nodes/extra/main_gpio.cpp
 )
 
 target_link_libraries(car_publisher
