@@ -22,6 +22,7 @@ find_package(OpenCV REQUIRED core imgproc imgcodecs highgui opencv_dnn)
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
+find_package(sensor_msgs REQUIRED)
 find_library(GPIO_LIB NAMES gpiod PATHS /usr/lib/aarch64-linux-gnu)
 find_library(i2c_LIB NAMES i2c PATHS /usr/lib/aarch64-linux-gnu)
 
@@ -50,8 +51,8 @@ target_link_libraries(gpio_control
     ${GPIO_LIB}
 )
 
-ament_target_dependencies(car_publisher rclcpp std_msgs)
-ament_target_dependencies(car_subscriber rclcpp std_msgs)
+ament_target_dependencies(car_publisher rclcpp std_msgs sensor_msgs)
+ament_target_dependencies(car_subscriber rclcpp std_msgs sensor_msgs)
 
 install(TARGETS
   car_publisher
