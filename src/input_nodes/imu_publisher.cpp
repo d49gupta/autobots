@@ -8,7 +8,6 @@ ImuPublisher::ImuPublisher(std::string nodeName, std::string topicName) : count_
 
 void ImuPublisher::getIMUData() {
   map<string, string> current_imu_data = this->imuReader.data[this->count_];
-  // imu_data.header.seq = static_cast<uint32_t>(std::stoul(current_imu_data["header.seq"]));
   int64_t seconds = std::stoll(current_imu_data["header.stamp.secs"]);
   int64_t nanoseconds = std::stoll(current_imu_data["header.stamp.nsecs"]);
   rclcpp::Time time(seconds, nanoseconds);

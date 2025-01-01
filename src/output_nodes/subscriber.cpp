@@ -18,7 +18,7 @@ ImuSubscriber::ImuSubscriber(std::string nodeName, int size, std::string topicNa
   auto topic_callback =
   [this, topic = topicName](sensor_msgs::msg::Imu::UniquePtr msg) -> void {
     IMUdata imu_data;
-    imu_data.linear_acceleration = msg -> linear_acceleration;
+    imu_data.linear_acceleration = msg->linear_acceleration;
     imu_data.angular_velocity = msg->angular_velocity;
     imu_data.orientation = msg->orientation;
     this->imuCache.enqueue(imu_data);
