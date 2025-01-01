@@ -39,5 +39,8 @@ RUN /bin/bash -c "source /opt/ros/humble/setup.bash && \
 RUN echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
 RUN echo "source /home/ros2_ws/install/setup.bash" >> ~/.bashrc
 
+RUN pip install rosbags
+RUN pip install bagpy
+
 # Set the default command to bash
 CMD ["/bin/bash"]
