@@ -9,5 +9,5 @@ import pandas as pd
 # bag.close()
 
 bag = bagreader('MH_01_easy.bag')
-imu_msg = bag.message_by_topic('/imu0')
+imu_msg = bag.message_by_topic('/leica/position')
 print(imu_msg)

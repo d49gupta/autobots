@@ -42,6 +42,10 @@ add_executable(gpio_control
   src/output_nodes/extra/main_gpio.cpp
 )
 
+add_executable(csv_reader
+  src/input_nodes/csv_reader.cpp
+)
+
 target_link_libraries(car_publisher
     ${i2c_LIB}
 )
@@ -58,6 +62,7 @@ install(TARGETS
   car_publisher
   car_subscriber
   gpio_control
+  csv_reader
   DESTINATION lib/${PROJECT_NAME}
 )
 

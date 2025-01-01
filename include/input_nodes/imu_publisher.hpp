@@ -4,8 +4,8 @@
 
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/string.hpp"
+#include "sensor_msgs/msg/imu.hpp"
 #include "std_msgs/msg/float32_multi_array.hpp"
-// #include <MPU6050.h>
 
 using namespace std::chrono_literals;
 
@@ -20,5 +20,4 @@ private:
   rclcpp::Publisher<std_msgs::msg::Float32MultiArray>::SharedPtr publisher_;
   int count_;
   std_msgs::msg::Float32MultiArray imu_data = std_msgs::msg::Float32MultiArray();
-  // MPU6050 imu_device;
 };
