@@ -1,8 +1,20 @@
 #include "subscriber.hpp"
 #include "alphaBetaFilter.hpp"
+#include <csignal>
+#include <unistd.h>
+
+rclcpp::executors::MultiThreadedExecutor* global_executor = nullptr;
+
+void signalHandler(int signal) {
+  std::cout<<"Stop signal detected"<<std::endl;
+  if (global_executor)
+    global_executor->cancel();
+}
 
 int main(int argc, char * argv[])
 {
+  signal(SIGINT, signalHandler);
+
   rclcpp::init(argc, argv);
   auto first_subscriber = std::make_shared<counterSubscriber>("counter_subscriber", 25, "counter_topic");
   auto second_subscriber = std::make_shared<ImuSubscriber>("imu_publisher", 25, "imu_topic");
@@ -12,8 +24,9 @@ int main(int argc, char * argv[])
   executor.add_node(first_subscriber);
   executor.add_node(second_subscriber);
   executor.add_node(sensor_fusion);
-  executor.spin();
 
+  global_executor = &executor;
+  executor.spin();
   rclcpp::shutdown();
   return 0;
 }
