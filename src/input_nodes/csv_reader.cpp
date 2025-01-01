@@ -1,14 +1,7 @@
-#include <iostream>
-#include <fstream>
-#include <sstream>
-#include <vector>
-#include <string>
-#include <map>
-
-using namespace std;
+#include "csv_reader.hpp"
 
 // Function to split a string by a delimiter (comma)
-vector<string> split(const string &str, char delimiter) {
+vector<string> csvReader::split(const string &str, char delimiter) {
     vector<string> result;
     stringstream ss(str);
     string token;
@@ -19,13 +12,13 @@ vector<string> split(const string &str, char delimiter) {
 }
 
 // Function to read CSV and store the data
-vector<map<string, string>> readCSV(const string &filename) {
-    ifstream file(filename);
+void csvReader::readCSV() {
+    ifstream file(this->filePath);
     vector<map<string, string>> csv_vector;
 
     if (!file.is_open()) {
-        cerr << "Failed to open file: " << filename << endl;
-        return csv_vector;
+        cerr << "Failed to open file: " << this->filePath << endl;
+        return;
     }
 
     string line;
@@ -45,27 +38,15 @@ vector<map<string, string>> readCSV(const string &filename) {
             for (size_t i = 0; i < row.size(); ++i) {
                 data_row[headers[i]] = row[i];
             }
-            csv_vector.push_back(data_row);
+            this->data.push_back(data_row);
         }
     }
 
     file.close();
-    return csv_vector;
 }
 
-void printRow(map<string, string> row) {
+void csvReader::printRow(map<string, string> row) {
     for (const auto &pair : row) {
         cout << pair.first << ": " << pair.second << " | ";
     }
-}
-
-int main() {
-    string filename = "../rosbags/data/imu0.csv";
-
-    vector<map<string, string>> data = readCSV(filename);
-    printRow(data[0]);
-    printRow(data[4]);
-    printRow(data[5]);
-
-    return 0;
 }

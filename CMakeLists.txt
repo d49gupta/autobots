@@ -10,8 +10,12 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
 endif()
 
+add_compile_options(-Wno-reorder)
+add_compile_options(-Wno-unused-but-set-variable)
+
 include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/include/input_nodes
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/output_nodes/extra
     ${CMAKE_CURRENT_SOURCE_DIR}/include/output_nodes
     ${OpenCV_INCLUDE_DIRS}
     /usr/include
@@ -28,8 +32,9 @@ find_library(i2c_LIB NAMES i2c PATHS /usr/lib/aarch64-linux-gnu)
 
 add_executable(car_publisher 
   src/input_nodes/counter_publisher.cpp
-  # src/input_nodes/imu_publisher.cpp
+  src/input_nodes/imu_publisher.cpp
   src/input_nodes/main_publisher.cpp
+  src/input_nodes/csv_reader.cpp
 )
 
 add_executable(car_subscriber
@@ -40,10 +45,6 @@ add_executable(car_subscriber
 add_executable(gpio_control
   src/output_nodes/extra/servo_control.cpp
   src/output_nodes/extra/main_gpio.cpp
-)
-
-add_executable(csv_reader
-  src/input_nodes/csv_reader.cpp
 )
 
 target_link_libraries(car_publisher
@@ -62,7 +63,6 @@ install(TARGETS
   car_publisher
   car_subscriber
   gpio_control
-  csv_reader
   DESTINATION lib/${PROJECT_NAME}
 )
 

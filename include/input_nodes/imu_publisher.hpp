@@ -7,6 +7,8 @@
 #include "sensor_msgs/msg/imu.hpp"
 #include "std_msgs/msg/float32_multi_array.hpp"
 
+#include "csv_reader.hpp"
+
 using namespace std::chrono_literals;
 
 class ImuPublisher : public rclcpp::Node
@@ -16,8 +18,9 @@ public:
   void getIMUData();
 
 private:
-  rclcpp::TimerBase::SharedPtr timer_data;
-  rclcpp::Publisher<std_msgs::msg::Float32MultiArray>::SharedPtr publisher_;
   int count_;
-  std_msgs::msg::Float32MultiArray imu_data = std_msgs::msg::Float32MultiArray();
+  csvReader imuReader;
+  sensor_msgs::msg::Imu imu_data = sensor_msgs::msg::Imu();
+  rclcpp::Publisher<sensor_msgs::msg::Imu>::SharedPtr publisher_;
+  rclcpp::TimerBase::SharedPtr timer_data;
 };
