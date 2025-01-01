@@ -6,11 +6,14 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 # Update and install necessary packages
 RUN apt-get update && apt-get install -y \
+    python3 \
     python3-pip \
     python3-colcon-common-extensions \
     build-essential \
     ros-humble-rviz2 \
     ros-humble-gazebo-ros-pkgs \
+    ros-humble-rosbag2 \
+    ros-humble-rosbag2-storage \
     && rm -rf /var/lib/apt/lists/*
 
 # Download demo ros2 nodes to test
