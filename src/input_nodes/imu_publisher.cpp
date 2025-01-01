@@ -3,7 +3,7 @@
 ImuPublisher::ImuPublisher(std::string nodeName, std::string topicName) : count_(0), imuReader("../rosbags/data/imu0.csv"), Node(nodeName) {
   this->imuReader.readCSV();
   publisher_ = this->create_publisher<sensor_msgs::msg::Imu>(topicName, 10);
-  timer_data = this->create_wall_timer(500ms, std::bind(&ImuPublisher::getIMUData, this));
+  timer_data = this->create_wall_timer(100ms, std::bind(&ImuPublisher::getIMUData, this));
 }
 
 void ImuPublisher::getIMUData() {

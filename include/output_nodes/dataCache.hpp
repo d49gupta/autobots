@@ -1,3 +1,6 @@
+#ifndef DATACACHE_HPP
+#define DATACACHE_HPP
+
 #include <vector>
 template <typename T>
 class dataCache {
@@ -40,3 +43,5 @@ private:
     int tail;
     int count;
 };
+
+#endif

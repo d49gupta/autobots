@@ -40,6 +40,7 @@ add_executable(car_publisher
 add_executable(car_subscriber
   src/output_nodes/subscriber.cpp
   src/output_nodes/main.cpp
+  src/output_nodes/alphaBetaFilter.cpp
 )
 
 add_executable(gpio_control

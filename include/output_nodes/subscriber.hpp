@@ -1,3 +1,6 @@
+#ifndef SUBSCRIBER_HPP
+#define SUBSCRIBER_HPP
+
 #include <memory>
 #include <iostream>
 #include "dataCache.hpp"
@@ -35,15 +38,4 @@ class ImuSubscriber : public rclcpp::Node
     rclcpp::Subscription<sensor_msgs::msg::Imu>::SharedPtr subscription_;
 };
 
-class sensorFusion : public rclcpp::Node {
-public:
-    sensorFusion(const std::shared_ptr<counterSubscriber> counterSensor1, 
-                 const std::shared_ptr<ImuSubscriber> counterSensor2);
-
-    void fuseData();
-private:
-    const std::shared_ptr<counterSubscriber> counterSensor1; 
-    const std::shared_ptr<ImuSubscriber> counterSensor2;
-    rclcpp::TimerBase::SharedPtr timer_;
- 
-};
+#endif
