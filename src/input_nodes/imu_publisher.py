@@ -10,7 +10,6 @@ class ImuPublisher(Node):
         super().__init__('imu_publisher')
         self.publisher = self.create_publisher(Imu, 'imu_topic', 10)
         self.timer = self.create_timer(0.01, self.publish_imu)
-        self.topicName = '/imu0'
         self.sensorData = sensorData
 
     def publish_imu(self):
