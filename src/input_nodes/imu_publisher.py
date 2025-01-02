@@ -11,11 +11,12 @@ class ImuPublisher(Node):
         self.publisher = self.create_publisher(Imu, topicName, 10)
         self.timer = self.create_timer(1, self.publish_imu)
         self.sensorData = sensorData
+        self.lastSequence = 0
 
     def publish_imu(self):
         imu_msg = Imu()
         data = self.sensorData.getSensorData(self.sensorData.imu_topic)
-        if data != False:
+        if data != False and data.header.seq != self.lastSequence:
             imu_msg.header.stamp.sec = data.header.stamp.sec
             imu_msg.header.stamp.nanosec = data.header.stamp.nanosec
             imu_msg.header.frame_id = data.header.frame_id
@@ -44,6 +45,7 @@ class ImuPublisher(Node):
 
             self.publisher.publish(imu_msg)
             self.get_logger().info(f"Published IMU data with header sequence: {data.header.seq}")
+            self.lastSequence = data.header.seq
 
 def main(args=None):
     rclpy.init(args=args)

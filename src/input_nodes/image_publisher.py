@@ -9,12 +9,13 @@ class ImagePublisher(Node):
         self.publisher = self.create_publisher(Image, topicName, 10)
         self.timer = self.create_timer(1, self.publish_image)
         self.sensorData = sensorData
+        self.lastSequence = 0
 
     def publish_image(self):
         image_msg = Image()
         data = self.sensorData.getSensorData(self.sensorData.camera0_topic)
 
-        if data != False:
+        if data != False and data.header.seq != self.lastSequence:
             image_msg.header.stamp.sec = data.header.stamp.sec
             image_msg.header.stamp.nanosec = data.header.stamp.nanosec
             image_msg.header.frame_id = data.header.frame_id
@@ -27,6 +28,7 @@ class ImagePublisher(Node):
 
             self.publisher.publish(image_msg)
             self.get_logger().info(f"Published image data with header sequence: {data.header.seq}")
+            self.lastSequence = data.header.seq
 
 def main(args=None):
     rclpy.init(args=args)
