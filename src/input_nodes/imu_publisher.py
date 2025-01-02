@@ -4,13 +4,12 @@ from sensor_msgs.msg import Imu
 from geometry_msgs.msg import Quaternion
 from geometry_msgs.msg import Vector3
 from RosBagInterpreter import sensorData
-import threading
 
 class ImuPublisher(Node):
     def __init__(self, sensorData):
         super().__init__('imu_publisher')
         self.publisher = self.create_publisher(Imu, 'imu_topic', 10)
-        self.timer = self.create_timer(0.5, self.publish_imu)
+        self.timer = self.create_timer(0.01, self.publish_imu)
         self.topicName = '/imu0'
         self.sensorData = sensorData
 
@@ -45,7 +44,7 @@ class ImuPublisher(Node):
             imu_msg.linear_acceleration_covariance = data.linear_acceleration_covariance
 
             self.publisher.publish(imu_msg)
-            self.get_logger().info(f"Published IMU data with timestamp: {imu_msg.header.stamp.sec} sec, {imu_msg.header.stamp.nanosec} nsec")
+            self.get_logger().info(f"Published IMU data with header sequence: {data.header.seq}")
 
 def main(args=None):
     rclpy.init(args=args)
