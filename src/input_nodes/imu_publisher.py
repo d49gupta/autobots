@@ -9,7 +9,7 @@ class ImuPublisher(Node):
     def __init__(self, sensorData, nodeName, topicName):
         super().__init__(nodeName)
         self.publisher = self.create_publisher(Imu, topicName, 10)
-        self.timer = self.create_timer(0.01, self.publish_imu)
+        self.timer = self.create_timer(1, self.publish_imu)
         self.sensorData = sensorData
 
     def publish_imu(self):

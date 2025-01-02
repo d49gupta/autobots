@@ -26,7 +26,7 @@ class ImagePublisher(Node):
             image_msg.data = data.data.flatten().tolist()
 
             self.publisher.publish(image_msg)
-            self.get_logger().info(f"Published image0 data with header sequence: {data.header.seq}")
+            self.get_logger().info(f"Published image data with header sequence: {data.header.seq}")
 
 def main(args=None):
     rclpy.init(args=args)

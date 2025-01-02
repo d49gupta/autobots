@@ -3,16 +3,8 @@ from rosbags.rosbag1 import Reader
 from rosbags.typesys import get_typestore, Stores
 from rclpy.node import Node
 import threading
+import os
 import signal
-
-sensor_publisher = None
-
-def handle_sigint(signum, frame):
-    print("Shutdown signal received")
-    if sensor_publisher:
-        sensor_publisher.destroy_node()
-    rclpy.shutdown()
-
 class sensorData(Node):
     def __init__(self):
         super().__init__('sensor_data_node')
@@ -45,7 +37,9 @@ class sensorData(Node):
                     # self.get_logger().info(msg)
             except Exception as e:
                 self.get_logger().error(f"Error deserializing message: {e}")
-    
+        
+        os.kill(os.getpid(), signal.SIGINT)
+
     def getSensorData(self, topic):
         with self.lock:
             if topic in self.sensorDict:
