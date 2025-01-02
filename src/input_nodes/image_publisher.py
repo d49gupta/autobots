@@ -2,7 +2,6 @@ import rclpy
 from rclpy.node import Node
 from sensor_msgs.msg import Image
 from RosBagInterpreter import sensorData
-import numpy as np
 
 class ImagePublisher(Node):
     def __init__(self, sensorData):
