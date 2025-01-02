@@ -6,9 +6,9 @@ from geometry_msgs.msg import Vector3
 from RosBagInterpreter import sensorData
 
 class ImuPublisher(Node):
-    def __init__(self, sensorData):
-        super().__init__('imu_publisher')
-        self.publisher = self.create_publisher(Imu, 'imu_topic', 10)
+    def __init__(self, sensorData, nodeName, topicName):
+        super().__init__(nodeName)
+        self.publisher = self.create_publisher(Imu, topicName, 10)
         self.timer = self.create_timer(0.01, self.publish_imu)
         self.sensorData = sensorData
 
@@ -52,7 +52,7 @@ def main(args=None):
     sensor_publisher = sensorData()
     sensor_publisher.start_bag_reader()
     
-    imu_publisher = ImuPublisher(sensor_publisher)
+    imu_publisher = ImuPublisher(sensor_publisher, "imu_publisher", "imu_topic")
     executor.add_node(imu_publisher)
 
     try:

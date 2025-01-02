@@ -31,3 +31,12 @@ ImageSubscriber::ImageSubscriber(std::string nodeName, int size, std::string top
   };
   subscription_ = this->create_subscription<sensor_msgs::msg::Image>(topicName, 10, topic_callback);
 }
+
+PositionSubscriber::PositionSubscriber(std::string nodeName, int size, std::string topicName) : Node(nodeName), positionCache(size) {
+  auto topic_callback =
+  [this, topic = topicName](geometry_msgs::msg::PointStamped::UniquePtr msg) -> void {
+    this->positionCache.enqueue(msg->point);
+    RCLCPP_INFO(this->get_logger(), "Position data received on topic %s", topic.c_str());
+  };
+  subscription_ = this->create_subscription<geometry_msgs::msg::PointStamped>(topicName, 10, topic_callback);
+}

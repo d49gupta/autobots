@@ -14,6 +14,8 @@
 #include "geometry_msgs/msg/quaternion.hpp"
 
 #include "sensor_msgs/msg/image.hpp"
+#include "geometry_msgs/msg/point_stamped.hpp"
+#include "geometry_msgs/msg/point.hpp"
 
 class counterSubscriber : public rclcpp::Node
 {
@@ -43,11 +45,21 @@ class ImuSubscriber : public rclcpp::Node
 class ImageSubscriber : public rclcpp::Node 
 {
   public:
-    ImageSubscriber(std::string nodeNmae, int size, std::string topicName);
+    ImageSubscriber(std::string nodeName, int size, std::string topicName);
     dataCache<sensor_msgs::msg::Image> imageCache;
   
   private:
-      rclcpp::Subscription<sensor_msgs::msg::Image>::SharedPtr subscription_;
+    rclcpp::Subscription<sensor_msgs::msg::Image>::SharedPtr subscription_;
+};
+
+class PositionSubscriber : public rclcpp::Node
+{
+  public:
+    PositionSubscriber(std::string nodeName, int size, std::string topicName);
+    dataCache<geometry_msgs::msg::Point> positionCache;
+
+  private:
+    rclcpp::Subscription<geometry_msgs::msg::PointStamped>::SharedPtr subscription_;
 };
 
 #endif

@@ -4,9 +4,9 @@ from sensor_msgs.msg import Image
 from RosBagInterpreter import sensorData
 
 class ImagePublisher(Node):
-    def __init__(self, sensorData):
-        super().__init__('image_publisher')
-        self.publisher = self.create_publisher(Image, 'image_topic', 10)
+    def __init__(self, sensorData, nodeName, topicName):
+        super().__init__(nodeName)
+        self.publisher = self.create_publisher(Image, topicName, 10)
         self.timer = self.create_timer(1, self.publish_image)
         self.sensorData = sensorData
 
@@ -35,7 +35,7 @@ def main(args=None):
     sensor_publisher = sensorData()
     sensor_publisher.start_bag_reader()
     
-    image_publisher = ImagePublisher(sensor_publisher)
+    image_publisher = ImagePublisher(sensor_publisher, "image_publisher", "image_topic")
     executor.add_node(image_publisher)
 
     try:
