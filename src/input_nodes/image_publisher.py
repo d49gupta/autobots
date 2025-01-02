@@ -10,7 +10,6 @@ class ImagePublisher(Node):
         self.publisher = self.create_publisher(Image, 'image_topic', 10)
         self.timer = self.create_timer(1, self.publish_image)
         self.sensorData = sensorData
-        print("Hello World")
 
     def publish_image(self):
         image_msg = Image()
@@ -35,11 +34,10 @@ def main(args=None):
 
     executor = rclpy.executors.MultiThreadedExecutor()
     sensor_publisher = sensorData()
-    sensor_publisher.getData()
-    # sensor_publisher.start_bag_reader()
+    sensor_publisher.start_bag_reader()
     
-    imu_publisher = ImagePublisher(sensor_publisher)
-    executor.add_node(imu_publisher)
+    image_publisher = ImagePublisher(sensor_publisher)
+    executor.add_node(image_publisher)
 
     try:
         executor.spin()
@@ -47,7 +45,7 @@ def main(args=None):
         pass
     finally:
         sensor_publisher.stop_bag_reader()
-        imu_publisher.destroy_node()
+        image_publisher.destroy_node()
         rclpy.shutdown()
 
 if __name__ == '__main__':

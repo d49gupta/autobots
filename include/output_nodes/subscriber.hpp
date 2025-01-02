@@ -8,10 +8,12 @@
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/string.hpp"
 #include "std_msgs/msg/int32.hpp"
-#include "sensor_msgs/msg/imu.hpp"
 
+#include "sensor_msgs/msg/imu.hpp"
 #include "geometry_msgs/msg/vector3.hpp"
 #include "geometry_msgs/msg/quaternion.hpp"
+
+#include "sensor_msgs/msg/image.hpp"
 
 class counterSubscriber : public rclcpp::Node
 {
@@ -36,6 +38,16 @@ class ImuSubscriber : public rclcpp::Node
     dataCache<IMUdata> imuCache;
   private:
     rclcpp::Subscription<sensor_msgs::msg::Imu>::SharedPtr subscription_;
+};
+
+class ImageSubscriber : public rclcpp::Node 
+{
+  public:
+    ImageSubscriber(std::string nodeNmae, int size, std::string topicName);
+    dataCache<sensor_msgs::msg::Image> imageCache;
+  
+  private:
+      rclcpp::Subscription<sensor_msgs::msg::Image>::SharedPtr subscription_;
 };
 
 #endif

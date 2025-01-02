@@ -42,6 +42,7 @@ class sensorData(Node):
                     self.sensorDict[connection.topic].append({'timestamp': timestamp, 'message': msg})
                     self.currentIndex[connection.topic] += 1
                     # self.get_logger().info(f"Processed data for topic: {connection.topic}")
+                    # self.get_logger().info(msg)
             except Exception as e:
                 self.get_logger().error(f"Error deserializing message: {e}")
     
@@ -65,12 +66,8 @@ class sensorData(Node):
         
 def main(args=None):
     rclpy.init(args=args)
-    # signal.signal(signal.SIGINT, handle_sigint)
     sensor_publisher = sensorData()
-    rclpy.spin(sensor_publisher)
-    sensor_publisher.destroy_node()
-    rclpy.shutdown()
-    print(sensor_publisher.currentIndex)
-    
+    sensor_publisher.start_bag_reader()
+
 if __name__ == '__main__':
     main()
