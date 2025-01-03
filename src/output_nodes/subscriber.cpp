@@ -26,10 +26,11 @@ ImuSubscriber::ImuSubscriber(std::string nodeName, int size, std::string topicNa
 ImageSubscriber::ImageSubscriber(std::string nodeName, int size, std::string topicName) : Node(nodeName), imageCache(size) {
   auto topic_callback =
   [this, topic = topicName](sensor_msgs::msg::Image::UniquePtr msg) -> void {
-    this->cv_ptr = cv_bridge::toCvCopy(*msg, sensor_msgs::image_encodings::MONO8);  
+    this->cv_ptr = cv_bridge::toCvCopy(*msg, sensor_msgs::image_encodings::MONO8);
     image_callback();
-    this->imageCache.enqueue(*msg); //dereference msg pointer to get msg
-    RCLCPP_INFO(this->get_logger(), "Image data received on topic %s", topic.c_str());
+    // this->imageCache.enqueue(*msg); //dereference msg pointer to get msg
+    RCLCPP_INFO(this->get_logger(), "Image width: %d, height: %d, encoding: %s", 
+            msg->width, msg->height, msg->encoding.c_str());
   };
   subscription_ = this->create_subscription<sensor_msgs::msg::Image>(topicName, 10, topic_callback);
 }

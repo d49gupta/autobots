@@ -50,10 +50,6 @@ add_executable(gpio_control
   src/output_nodes/extra/main_gpio.cpp
 )
 
-# add_executable(visual_odometry
-#   src/output_nodes/visualOdometry.cpp
-# )
-
 target_link_libraries(car_publisher
     ${i2c_LIB}
 )
@@ -67,10 +63,6 @@ target_link_libraries(car_subscriber
     ${OpenCV_LIBS}
 )
 
-# target_link_libraries(visual_odometry
-#     ${OpenCV_LIBS}
-# )
-
 ament_target_dependencies(car_publisher rclcpp std_msgs sensor_msgs)
 ament_target_dependencies(car_subscriber rclcpp std_msgs sensor_msgs cv_bridge)
 
@@ -78,7 +70,6 @@ install(TARGETS
   car_publisher
   car_subscriber
   gpio_control
-  # visual_odometry
   DESTINATION lib/${PROJECT_NAME}
 )
 

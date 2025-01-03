@@ -7,7 +7,7 @@ class ImagePublisher(Node):
     def __init__(self, sensorData, nodeName, topicName):
         super().__init__(nodeName)
         self.publisher = self.create_publisher(Image, topicName, 10)
-        self.timer = self.create_timer(1, self.publish_image)
+        self.timer = self.create_timer(0.01, self.publish_image)
         self.sensorData = sensorData
         self.lastSequence = 0
 

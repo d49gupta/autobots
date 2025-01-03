@@ -32,12 +32,12 @@ def main(args=None):
     sensor_publisher = sensorData()
     sensor_publisher.start_bag_reader()
     
-    # position_publisher = PositionPublisher(sensor_publisher, "position_publisher", "position_topic")
-    # imu_publisher = ImuPublisher(sensor_publisher, "imu_publisher", "imu_topic")
+    position_publisher = PositionPublisher(sensor_publisher, "position_publisher", "position_topic")
+    imu_publisher = ImuPublisher(sensor_publisher, "imu_publisher", "imu_topic")
     image_publisher = ImagePublisher(sensor_publisher, "image_publisher", "image_topic")
 
-    # executor.add_node(position_publisher)
-    # executor.add_node(imu_publisher)
+    executor.add_node(position_publisher)
+    executor.add_node(imu_publisher)
     executor.add_node(image_publisher)
 
     try:
@@ -46,8 +46,8 @@ def main(args=None):
         pass
     finally:
         sensor_publisher.stop_bag_reader()
-        # position_publisher.destroy_node()
-        # imu_publisher.destroy_node()
+        position_publisher.destroy_node()
+        imu_publisher.destroy_node()
         image_publisher.destroy_node()
         rclpy.shutdown()
 
