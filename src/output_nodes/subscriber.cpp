@@ -26,6 +26,8 @@ ImuSubscriber::ImuSubscriber(std::string nodeName, int size, std::string topicNa
 ImageSubscriber::ImageSubscriber(std::string nodeName, int size, std::string topicName) : Node(nodeName), imageCache(size) {
   auto topic_callback =
   [this, topic = topicName](sensor_msgs::msg::Image::UniquePtr msg) -> void {
+    this->cv_ptr = cv_bridge::toCvCopy(*msg, sensor_msgs::image_encodings::MONO8);  
+    image_callback();
     this->imageCache.enqueue(*msg); //dereference msg pointer to get msg
     RCLCPP_INFO(this->get_logger(), "Image data received on topic %s", topic.c_str());
   };
@@ -39,4 +41,16 @@ PositionSubscriber::PositionSubscriber(std::string nodeName, int size, std::stri
     RCLCPP_INFO(this->get_logger(), "Position data received on topic %s", topic.c_str());
   };
   subscription_ = this->create_subscription<geometry_msgs::msg::PointStamped>(topicName, 10, topic_callback);
+}
+
+void ImageSubscriber::image_callback() {
+    try
+    {      
+        cv::imshow("Mono8 Image", this->cv_ptr->image);
+        cv::waitKey(1);
+    }
+    catch (cv_bridge::Exception &e)
+    {
+        RCLCPP_ERROR(rclcpp::get_logger("image_listener"), "Could not convert image");
+    }
 }

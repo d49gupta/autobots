@@ -14,6 +14,8 @@
 #include "geometry_msgs/msg/quaternion.hpp"
 
 #include "sensor_msgs/msg/image.hpp"
+#include <opencv2/opencv.hpp>
+#include <cv_bridge/cv_bridge.h>
 #include "geometry_msgs/msg/point_stamped.hpp"
 #include "geometry_msgs/msg/point.hpp"
 
@@ -47,9 +49,12 @@ class ImageSubscriber : public rclcpp::Node
   public:
     ImageSubscriber(std::string nodeName, int size, std::string topicName);
     dataCache<sensor_msgs::msg::Image> imageCache;
-  
+    void image_callback();
+
   private:
     rclcpp::Subscription<sensor_msgs::msg::Image>::SharedPtr subscription_;
+    sensor_msgs::msg::Image::UniquePtr last_image;
+    cv_bridge::CvImagePtr cv_ptr;
 };
 
 class PositionSubscriber : public rclcpp::Node
