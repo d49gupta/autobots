@@ -3,6 +3,7 @@
 
 #include <memory>
 #include <iostream>
+#include <mutex>
 #include "dataCache.hpp"
 
 #include "rclcpp/rclcpp.hpp"
@@ -55,6 +56,7 @@ class ImageSubscriber : public rclcpp::Node
     rclcpp::Subscription<sensor_msgs::msg::Image>::SharedPtr subscription_;
     sensor_msgs::msg::Image::UniquePtr last_image;
     cv_bridge::CvImagePtr cv_ptr;
+    std::mutex image_mutex;
 };
 
 class PositionSubscriber : public rclcpp::Node

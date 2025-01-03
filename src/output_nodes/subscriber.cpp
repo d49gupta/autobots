@@ -26,7 +26,10 @@ ImuSubscriber::ImuSubscriber(std::string nodeName, int size, std::string topicNa
 ImageSubscriber::ImageSubscriber(std::string nodeName, int size, std::string topicName) : Node(nodeName), imageCache(size) {
   auto topic_callback =
   [this, topic = topicName](sensor_msgs::msg::Image::UniquePtr msg) -> void {
-    this->cv_ptr = cv_bridge::toCvCopy(*msg, sensor_msgs::image_encodings::MONO8);
+    if (msg){
+      std::lock_guard<std::mutex> lock(this->image_mutex);
+      this->cv_ptr = cv_bridge::toCvCopy(*msg, sensor_msgs::image_encodings::MONO8);
+    }
     image_callback();
     // this->imageCache.enqueue(*msg); //dereference msg pointer to get msg
     RCLCPP_INFO(this->get_logger(), "Image width: %d, height: %d, encoding: %s", 
@@ -46,7 +49,8 @@ PositionSubscriber::PositionSubscriber(std::string nodeName, int size, std::stri
 
 void ImageSubscriber::image_callback() {
     try
-    {      
+    {   
+        std::lock_guard<std::mutex> lock(this->image_mutex);
         cv::imshow("Mono8 Image", this->cv_ptr->image);
         cv::waitKey(1);
     }
