@@ -54,7 +54,6 @@ class ImageSubscriber : public rclcpp::Node
 
   private:
     rclcpp::Subscription<sensor_msgs::msg::Image>::SharedPtr subscription_;
-    sensor_msgs::msg::Image::UniquePtr last_image;
     cv_bridge::CvImagePtr cv_ptr;
     std::mutex image_mutex;
 };
