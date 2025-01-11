@@ -23,7 +23,7 @@ ImuSubscriber::ImuSubscriber(std::string nodeName, int size, std::string topicNa
   subscription_ = this->create_subscription<sensor_msgs::msg::Imu>(topicName, 10, topic_callback);
 }
 
-ImageSubscriber::ImageSubscriber(std::string nodeName, int size, std::string topicName) : Node(nodeName), imageCache(size) {
+ImageSubscriber::ImageSubscriber(std::string nodeName, int size, std::string topicName) : Node(nodeName), imageCache(size), topicName(topicName) {
   auto topic_callback =
   [this, topic = topicName](sensor_msgs::msg::Image::UniquePtr msg) -> void {
     if (msg){
@@ -51,7 +51,7 @@ void ImageSubscriber::image_callback() {
     try
     {   
         std::lock_guard<std::mutex> lock(this->image_mutex);
-        cv::imshow("Mono8 Image", this->cv_ptr->image);
+        cv::imshow(this->topicName, this->cv_ptr->image);
         cv::waitKey(1);
     }
     catch (cv_bridge::Exception &e)

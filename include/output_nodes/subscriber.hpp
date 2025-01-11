@@ -56,6 +56,7 @@ class ImageSubscriber : public rclcpp::Node
     rclcpp::Subscription<sensor_msgs::msg::Image>::SharedPtr subscription_;
     cv_bridge::CvImagePtr cv_ptr;
     std::mutex image_mutex;
+    std::string topicName;
 };
 
 class PositionSubscriber : public rclcpp::Node

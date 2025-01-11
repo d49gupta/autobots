@@ -4,16 +4,17 @@ from sensor_msgs.msg import Image
 from RosBagInterpreter import sensorData
 
 class ImagePublisher(Node):
-    def __init__(self, sensorData, nodeName, topicName):
+    def __init__(self, sensorData, nodeName, topicName, cameraNumber):
         super().__init__(nodeName)
         self.publisher = self.create_publisher(Image, topicName, 10)
         self.timer = self.create_timer(0.01, self.publish_image)
         self.sensorData = sensorData
         self.lastSequence = 0
+        self.camera = self.cameraTopic(cameraNumber)
 
     def publish_image(self):
         image_msg = Image()
-        data = self.sensorData.getSensorData(self.sensorData.camera0_topic)
+        data = self.sensorData.getSensorData(self.camera)
 
         if data != False and data.header.seq != self.lastSequence:
             image_msg.header.stamp.sec = data.header.stamp.sec
@@ -29,6 +30,12 @@ class ImagePublisher(Node):
             self.publisher.publish(image_msg)
             self.get_logger().info(f"Published image data with header sequence: {data.header.seq}")
             self.lastSequence = data.header.seq
+
+    def cameraTopic(self, cameraNumber):
+        if cameraNumber == 0:
+            return self.sensorData.camera0_topic
+        elif cameraNumber == 1:
+            return self.sensorData.camera1_topic
 
 def main(args=None):
     rclpy.init(args=args)
