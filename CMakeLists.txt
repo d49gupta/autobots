@@ -32,12 +32,12 @@ find_package(sensor_msgs REQUIRED)
 find_library(GPIO_LIB NAMES gpiod PATHS /usr/lib/aarch64-linux-gnu)
 find_library(i2c_LIB NAMES i2c PATHS /usr/lib/aarch64-linux-gnu)
 
-add_executable(car_publisher 
-  src/input_nodes/counter_publisher.cpp
-  src/input_nodes/imu_publisher.cpp
-  src/input_nodes/main_publisher.cpp
-  src/input_nodes/csv_reader.cpp
-)
+# add_executable(car_publisher 
+#   src/input_nodes/counter_publisher.cpp
+#   src/input_nodes/imu_publisher.cpp
+#   src/input_nodes/main_publisher.cpp
+#   src/input_nodes/csv_reader.cpp
+# )
 
 add_executable(car_subscriber
   src/output_nodes/subscriber.cpp
@@ -45,31 +45,36 @@ add_executable(car_subscriber
   src/output_nodes/alphaBetaFilter.cpp
 )
 
-add_executable(gpio_control
-  src/output_nodes/extra/servo_control.cpp
-  src/output_nodes/extra/main_gpio.cpp
+add_executable(test_hashmap
+  src/output_nodes/hashMap.cpp
 )
 
-target_link_libraries(car_publisher
-    ${i2c_LIB}
-)
+# add_executable(gpio_control
+#   src/output_nodes/extra/servo_control.cpp
+#   src/output_nodes/extra/main_gpio.cpp
+# )
 
-target_link_libraries(gpio_control 
-    ${OpenCV_LIBS}
-    ${GPIO_LIB}
-)
+# target_link_libraries(car_publisher
+#     ${i2c_LIB}
+# )
+
+# target_link_libraries(gpio_control 
+#     ${OpenCV_LIBS}
+#     ${GPIO_LIB}
+# )
 
 target_link_libraries(car_subscriber
     ${OpenCV_LIBS}
 )
 
-ament_target_dependencies(car_publisher rclcpp std_msgs sensor_msgs)
+# ament_target_dependencies(car_publisher rclcpp std_msgs sensor_msgs)
 ament_target_dependencies(car_subscriber rclcpp std_msgs sensor_msgs cv_bridge)
 
 install(TARGETS
-  car_publisher
+  # car_publisher
   car_subscriber
-  gpio_control
+  test_hashmap
+  # gpio_control
   DESTINATION lib/${PROJECT_NAME}
 )
 

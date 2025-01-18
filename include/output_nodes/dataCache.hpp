@@ -6,11 +6,11 @@ template <typename T>
 class dataCache {
 public:
     dataCache(int size) : size(size), buffer(size), head(0), tail(0), count(0) {}
-    bool isFull() {
+    bool isFull() const{
         return this->count == this->size;
     }
 
-    bool isEmpty() {
+    bool isEmpty() const{
         return this->count == 0;
     }
 
@@ -26,7 +26,7 @@ public:
         }
     }
 
-    T newestValue() {
+    T newestValue() const{
         if (!isEmpty()) {
             int newestIndex = (head - 1 + size) % size;
             return buffer[newestIndex];
