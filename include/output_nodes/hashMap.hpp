@@ -21,26 +21,21 @@ private:
     std::map<size_t, dataCache<T>> table;
     double bucket_interval = 1.0 / GPS_FREQUENCY;
     int cacheSize;
+    int resolution;
 
     size_t hash(const K& key) const {
-        //time = key.seconds*10e9 + key.nanoseconds
-        // double normalized_time = static_cast<size_t>((key - OFFSET) * bucket_interval);
-        // double seconds;
-        // double nanoseconds = std::modf(normalized_time, &seconds);
         int left_two_digits = static_cast<int>(key.seconds) % 100;
         int right_two_digits = getFirstTwoDigits(key.nanoseconds);
-        // std::cout<<left_two_digits<<" "<<right_two_digits<<std::endl;
-        size_t index = left_two_digits*100 + right_two_digits;
-        // std::cout << "This is the index: " << index << std::endl;
+        size_t index = left_two_digits*std::pow(10, resolution) + right_two_digits;
         return index; 
     }
 
 public:
-    HashMap(int cacheSize): cacheSize(cacheSize) {}
+    HashMap(int cacheSize, int resolution): cacheSize(cacheSize), resolution(resolution) {}
 
     int getFirstTwoDigits(long long number) const {
         int numDigits = static_cast<int>(std::log10(number)) + 1;
-        long long divisor = static_cast<long long>(std::pow(10, numDigits - 2));
+        long long divisor = static_cast<long long>(std::pow(10, numDigits - resolution));
         return number / divisor;
     }
 
