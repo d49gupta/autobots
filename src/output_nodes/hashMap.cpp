@@ -3,23 +3,31 @@
 #include <iostream>
 
 int main() {
-    // Create a hash map with 5 buckets, each bucket can store up to 3 values
-    HashMap<std::string, int> hashMap(5, 3);
+    HashMap<Time, int> hashMap(3);
+    Time t;
+    t.seconds = 1403636599;
+    t.nanoseconds = 753555500;
 
-    // Add values to the hash map
-    hashMap.add("sensor1", 10);
-    hashMap.add("sensor1", 20);
-    hashMap.add("sensor1", 30);
-    hashMap.add("sensor1", 40); // This will overwrite the oldest value in the circular queue
+    Time t1;
+    t1.seconds = 1403636598;
+    t1.nanoseconds = 963555500;
 
-    hashMap.add("sensor2", 100);
-    hashMap.add("sensor2", 200);
+    Time t2;
+    t2.seconds = 1403636598;
+    t2.nanoseconds = 963555500;
 
-    // Retrieve and print the newest value for a key
-    std::cout << "Newest value for sensor1: " << hashMap.getNewest("sensor1") << std::endl;
-    std::cout << "Newest value for sensor2: " << hashMap.getNewest("sensor2") << std::endl;
+    hashMap.add(t, 10);
+    hashMap.add(t1, 20);
+    hashMap.add(t2, 50);
+    // hashMap.add(1403636599773555500, 30);
+    // hashMap.add(1403636599783555500, 40);
 
-    // Print the entire hash map
+    // hashMap.add(1403636599853555500, 100);
+    // hashMap.add(1403636599953555500, 200);
+
+    // std::cout << "Newest value for sensor1: " << hashMap.getNewest(1403636599753555500) << std::endl;
+    // std::cout << "Newest value for sensor2: " << hashMap.getNewest(1403636599753555500) << std::endl;
+
     hashMap.print();
 
     return 0;
