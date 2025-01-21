@@ -7,8 +7,7 @@
 #include <iostream>
 #include <cmath>
 
-#define GPS_FREQUENCY 100000000 //in nanoseconds
-#define OFFSET 1000000000000000000
+#define BUCKET_THRESHOLD 5
 
 struct Time {
     long int seconds;
@@ -19,7 +18,6 @@ template <typename K, typename T>
 class HashMap {
 private:
     std::map<size_t, dataCache<T>> table;
-    double bucket_interval = 1.0 / GPS_FREQUENCY;
     int cacheSize;
     int resolution;
 
@@ -51,12 +49,25 @@ public:
         }
     }
 
+    T handleMissingHash(size_t bucketIndex) const {
+        std::cout<<"THIS IS THE INDEX: "<<bucketIndex<<std::endl;
+        for (int index = 1; index <= BUCKET_THRESHOLD; index++)
+        {
+            if (table.find(bucketIndex - index) != table.end())
+            {
+                std::cout<<"Replacement hash key found at: "<<(bucketIndex - index)<<std::endl;
+                return table.at(bucketIndex - index).newestValue(); //try to return last 5 consecutive buckets if they exist
+            }
+        }
+        std::cout<<"No hash key found"<<std::endl;
+        return T(); //default constructor for object type T
+    }
+
     T getNewest(const K& key) const {
         size_t bucketIndex = hash(key);
         if (table.find(bucketIndex) == table.end())
         {
-            //add logic to interpolate nearest imu value
-            throw std::runtime_error("Bucket not found");
+            return handleMissingHash(bucketIndex); //either finds value or returns empty mock cache
         }
         return table.at(bucketIndex).newestValue();
     }
