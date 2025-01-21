@@ -22,8 +22,8 @@ private:
     int resolution;
 
     size_t hash(const K& key) const {
-        int left_two_digits = static_cast<int>(key.seconds) % 100;
-        int right_two_digits = getFirstTwoDigits(key.nanoseconds);
+        int left_two_digits = static_cast<int>(key.sec) % 100; //only supports ros timestamp type
+        int right_two_digits = getFirstTwoDigits(key.nanosec);
         size_t index = left_two_digits*std::pow(10, resolution) + right_two_digits;
         return index; 
     }
@@ -50,7 +50,6 @@ public:
     }
 
     T handleMissingHash(size_t bucketIndex) const {
-        std::cout<<"THIS IS THE INDEX: "<<bucketIndex<<std::endl;
         for (int index = 1; index <= BUCKET_THRESHOLD; index++)
         {
             if (table.find(bucketIndex - index) != table.end())

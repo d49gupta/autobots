@@ -42,12 +42,11 @@ find_library(i2c_LIB NAMES i2c PATHS /usr/lib/aarch64-linux-gnu)
 add_executable(car_subscriber
   src/output_nodes/subscriber.cpp
   src/output_nodes/main.cpp
-  src/output_nodes/alphaBetaFilter.cpp
 )
 
-add_executable(test_hashmap
-  src/output_nodes/hashMap.cpp
-)
+# add_executable(test_hashmap
+#   src/output_nodes/hashMap.cpp
+# )
 
 # add_executable(gpio_control
 #   src/output_nodes/extra/servo_control.cpp
@@ -73,7 +72,7 @@ ament_target_dependencies(car_subscriber rclcpp std_msgs sensor_msgs cv_bridge)
 install(TARGETS
   # car_publisher
   car_subscriber
-  test_hashmap
+  # test_hashmap
   # gpio_control
   DESTINATION lib/${PROJECT_NAME}
 )

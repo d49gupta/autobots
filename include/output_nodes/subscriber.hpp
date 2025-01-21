@@ -5,6 +5,7 @@
 #include <iostream>
 #include <mutex>
 #include "dataCache.hpp"
+#include "hashMap.hpp"
 
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/string.hpp"
@@ -19,6 +20,7 @@
 #include <cv_bridge/cv_bridge.h>
 #include "geometry_msgs/msg/point_stamped.hpp"
 #include "geometry_msgs/msg/point.hpp"
+#include "builtin_interfaces/msg/time.hpp"
 
 class counterSubscriber : public rclcpp::Node
 {
@@ -33,14 +35,14 @@ class counterSubscriber : public rclcpp::Node
 class ImuSubscriber : public rclcpp::Node
 {
   public:
-    ImuSubscriber(std::string nodeName, int size, std::string topicName);
+    ImuSubscriber(std::string nodeName, int size, std::string topicName, int resolution);
     struct IMUdata {
       geometry_msgs::msg::Vector3 linear_acceleration;
       geometry_msgs::msg::Vector3 angular_velocity;
       geometry_msgs::msg::Quaternion orientation;
     };
     
-    dataCache<IMUdata> imuCache;
+    HashMap<builtin_interfaces::msg::Time, IMUdata> imuHashMap;
   private:
     rclcpp::Subscription<sensor_msgs::msg::Imu>::SharedPtr subscription_;
 };

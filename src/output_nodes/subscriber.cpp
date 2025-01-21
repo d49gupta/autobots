@@ -9,14 +9,14 @@ counterSubscriber::counterSubscriber(std::string nodeName, int size, std::string
   subscription_ = this->create_subscription<std_msgs::msg::Int32>(topicName, 10, topic_callback);
 }
 
-ImuSubscriber::ImuSubscriber(std::string nodeName, int size, std::string topicName) : Node(nodeName), imuCache(size) { //same data is being pushed to cache, need a way to prevent that
+ImuSubscriber::ImuSubscriber(std::string nodeName, int size, std::string topicName, int resolution) : Node(nodeName), imuHashMap(size, resolution){ //same data is being pushed to cache, need a way to prevent that
   auto topic_callback =
   [this, topic = topicName](sensor_msgs::msg::Imu::UniquePtr msg) -> void {
     IMUdata imu_data;
     imu_data.linear_acceleration = msg->linear_acceleration;
     imu_data.angular_velocity = msg->angular_velocity;
     imu_data.orientation = msg->orientation;
-    this->imuCache.enqueue(imu_data);
+    imuHashMap.add(msg->header.stamp, imu_data);
 
     RCLCPP_INFO(this->get_logger(), "IMU data received on topic %s", topic.c_str());
   };
