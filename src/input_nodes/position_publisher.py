@@ -1,39 +1,33 @@
 import rclpy
 from rclpy.node import Node
-from geometry_msgs.msg import PointStamped, PoseStamped
-from geometry_msgs.msg import Pose
+from geometry_msgs.msg import PointStamped
+from geometry_msgs.msg import Point
 from RosBagInterpreter import sensorData
-from nav_msgs.msg import Path
 
 class PositionPublisher(Node):
     def __init__(self, sensorData, nodeName, topicName):
         super().__init__(nodeName)
-        self.publisher = self.create_publisher(Path, topicName, 10)
-        self.timer = self.create_timer(0.05, self.publish_position)
+        self.publisher = self.create_publisher(PointStamped, topicName, 10)
+        self.timer = self.create_timer(1, self.publish_position)
         self.sensorData = sensorData
-        self.lastSequence = 0
-        self.path = Path()
-        self.frame_id = "map"
 
     def publish_position(self):
+        position_msg = PointStamped()
         data = self.sensorData.getSensorData(self.sensorData.position_topic)
-        if data != False and data.header.seq != self.lastSequence:
-            pose_stamped_msg = PoseStamped()
-            pose_stamped_msg.header.stamp.sec = data.header.stamp.sec
-            pose_stamped_msg.header.stamp.nanosec = data.header.stamp.nanosec
-            pose_stamped_msg.header.frame_id = self.frame_id
 
-            pose_stamped_msg.pose.position.x = data.point.x
-            pose_stamped_msg.pose.position.y = data.point.y
-            pose_stamped_msg.pose.position.z = data.point.z
-            pose_stamped_msg.pose.orientation.w = 1.0
+        if data != False:
+            position_msg.header.stamp.sec = data.header.stamp.sec
+            position_msg.header.stamp.nanosec = data.header.stamp.nanosec
+            position_msg.header.frame_id = data.header.frame_id
 
-            self.path.header = pose_stamped_msg.header
-            self.path.poses.append(pose_stamped_msg)
+            point_msg = Point()
+            point_msg.x = data.point.x
+            point_msg.y = data.point.y
+            point_msg.z = data.point.z
+            position_msg.point = point_msg
 
-            self.publisher.publish(self.path)
-            self.get_logger().info(f"Published ground truth data with header sequence: {data.header.seq}")
-            self.lastSequence = data.header.seq
+            self.publisher.publish(position_msg)
+            self.get_logger().info(f"Published position data with header sequence: {data.header.seq}")
 
 def main(args=None):
     rclpy.init(args=args)
