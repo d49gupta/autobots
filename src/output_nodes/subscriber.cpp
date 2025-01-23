@@ -33,8 +33,8 @@ ImageSubscriber::ImageSubscriber(std::string nodeName, int size, std::string top
     }
     image_callback();
     // this->imageCache.enqueue(*msg); //dereference msg pointer to get msg
-    RCLCPP_INFO(this->get_logger(), "Image width: %d, height: %d, encoding: %s", 
-            msg->width, msg->height, msg->encoding.c_str());
+    // RCLCPP_INFO(this->get_logger(), "Image width: %d, height: %d, encoding: %s", 
+    //         msg->width, msg->height, msg->encoding.c_str());
   };
   subscription_ = this->create_subscription<sensor_msgs::msg::Image>(topicName, 10, topic_callback);
 }
@@ -45,7 +45,7 @@ PositionSubscriber::PositionSubscriber(std::string nodeName, int size, std::stri
   
   auto topic_callback =
   [this, subscriber_topicName = subscriber_topicName](geometry_msgs::msg::PointStamped::UniquePtr msg) -> void {
-    RCLCPP_INFO(this->get_logger(), "Position data received on topic %s", subscriber_topicName.c_str());
+    // RCLCPP_INFO(this->get_logger(), "Position data received on topic %s", subscriber_topicName.c_str());
     this->totalMessagesSubscribed += 1;
     pathCallback(*msg);
   };

@@ -2,3 +2,5 @@ build/
 rosbags/MH_01_easy.bag
 .vscode/
 src/input_nodes/__pycache__/
+install/
+log/

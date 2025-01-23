@@ -26,7 +26,7 @@ class PosePublisher(Node):
             pose_stamped_msg.pose.position.x = data.point.x
             pose_stamped_msg.pose.position.y = data.point.y
             pose_stamped_msg.pose.position.z = data.point.z
-            pose_stamped_msg.pose.orientation.w = 1.0
+            pose_stamped_msg.pose.orientation.w = 0.5
 
             self.path.header = pose_stamped_msg.header
             self.path.poses.append(pose_stamped_msg)
