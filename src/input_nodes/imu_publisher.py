@@ -9,7 +9,7 @@ class ImuPublisher(Node):
     def __init__(self, sensorData, nodeName, topicName):
         super().__init__(nodeName)
         self.publisher = self.create_publisher(Imu, topicName, 10)
-        self.timer = self.create_timer(0.001, self.publish_imu)
+        self.timer = self.create_timer(0.05, self.publish_imu)
         self.sensorData = sensorData
         self.lastSequence = 0
 
@@ -44,7 +44,8 @@ class ImuPublisher(Node):
             imu_msg.linear_acceleration_covariance = data.linear_acceleration_covariance
 
             self.publisher.publish(imu_msg)
-            self.get_logger().info(f"Published IMU data with header sequence: {data.header.seq}")
+            # self.get_logger().info(f"Published IMU data with header sequence: {data.header.seq}")
+            # self.get_logger().info(f"Published IMU data with header sequence: {data.header.stamp}")
             self.lastSequence = data.header.seq
 
 def main(args=None):

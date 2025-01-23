@@ -22,13 +22,14 @@ private:
     int resolution;
 
     size_t hash(const K& key) const {
-        int left_two_digits = static_cast<int>(key.sec) % 100; //only supports ros timestamp type
+        int left_two_digits = static_cast<int>(key.sec) % 1000; //only supports ros timestamp type
         int right_two_digits = getFirstTwoDigits(key.nanosec);
         size_t index = left_two_digits*std::pow(10, resolution) + right_two_digits;
         return index; 
     }
 
 public:
+    mutable bool foundHash = false;
     HashMap(int cacheSize, int resolution): cacheSize(cacheSize), resolution(resolution) {}
 
     int getFirstTwoDigits(long long number) const {
@@ -39,6 +40,7 @@ public:
 
     void add(const K& key, const T& value) {
         size_t bucketIndex = hash(key);
+        // std::cout<<"This is the hash key added: "<<bucketIndex<<std::endl;
         if (table.find(bucketIndex) != table.end()) 
             table[bucketIndex].enqueue(value);
         else
@@ -50,14 +52,17 @@ public:
     }
 
     T handleMissingHash(size_t bucketIndex) const {
+        std::cout<<"This is the hash key: "<<bucketIndex<<std::endl;
         for (int index = 1; index <= BUCKET_THRESHOLD; index++)
         {
             if (table.find(bucketIndex - index) != table.end())
             {
                 std::cout<<"Replacement hash key found at: "<<(bucketIndex - index)<<std::endl;
+                foundHash = true;
                 return table.at(bucketIndex - index).newestValue(); //try to return last 5 consecutive buckets if they exist
             }
         }
+        foundHash = false;
         std::cout<<"No hash key found"<<std::endl;
         return T(); //default constructor for object type T
     }
@@ -68,6 +73,8 @@ public:
         {
             return handleMissingHash(bucketIndex); //either finds value or returns empty mock cache
         }
+        foundHash = true;
+        std::cout<<"Hash key found at: "<<(bucketIndex)<<std::endl;
         return table.at(bucketIndex).newestValue();
     }
 
@@ -83,6 +90,12 @@ public:
                 std::cout << "Empty";
             }
             std::cout << std::endl;
+        }
+    }
+
+    void printKeys() const {
+        for (const auto& pair : table) {
+            std::cout << pair.first << std::endl;
         }
     }
 };

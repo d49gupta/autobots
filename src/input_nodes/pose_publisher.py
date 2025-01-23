@@ -42,7 +42,7 @@ def main(args=None):
     sensor_publisher = sensorData()
     sensor_publisher.start_bag_reader()
     
-    position_publisher = PositionPublisher(sensor_publisher, "position_publisher", "position_topic")
+    position_publisher = PositionPublisher(sensor_publisher, "position_publisher", "pose_topic")
     executor.add_node(position_publisher)
 
     try:

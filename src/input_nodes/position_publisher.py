@@ -10,12 +10,13 @@ class PositionPublisher(Node):
         self.publisher = self.create_publisher(PointStamped, topicName, 10)
         self.timer = self.create_timer(1, self.publish_position)
         self.sensorData = sensorData
+        self.lastSequence = 0
 
     def publish_position(self):
         position_msg = PointStamped()
         data = self.sensorData.getSensorData(self.sensorData.position_topic)
 
-        if data != False:
+        if data != False and data.header.seq != self.lastSequence:
             position_msg.header.stamp.sec = data.header.stamp.sec
             position_msg.header.stamp.nanosec = data.header.stamp.nanosec
             position_msg.header.frame_id = data.header.frame_id
@@ -27,7 +28,9 @@ class PositionPublisher(Node):
             position_msg.point = point_msg
 
             self.publisher.publish(position_msg)
-            self.get_logger().info(f"Published position data with header sequence: {data.header.seq}")
+            # self.get_logger().info(f"Published position data with header sequence: {data.header.seq}")
+            self.get_logger().info(f"Published position data with header sequence: {data.header.stamp}")
+            self.lastSequence = data.header.seq
 
 def main(args=None):
     rclpy.init(args=args)

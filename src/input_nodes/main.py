@@ -34,13 +34,13 @@ def main(args=None):
     
     position_publisher = PositionPublisher(sensor_publisher, "position_publisher", "position_topic")
     imu_publisher = ImuPublisher(sensor_publisher, "imu_publisher", "imu_topic")
-    image_publisher0 = ImagePublisher(sensor_publisher, "image_publisher0", "image_topic0", 0)
-    image_publisher1 = ImagePublisher(sensor_publisher, "image_publisher1", "image_topic1", 1)
+    # image_publisher0 = ImagePublisher(sensor_publisher, "image_publisher0", "image_topic0", 0)
+    # image_publisher1 = ImagePublisher(sensor_publisher, "image_publisher1", "image_topic1", 1)
 
     executor.add_node(position_publisher)
     executor.add_node(imu_publisher)
-    executor.add_node(image_publisher0)
-    executor.add_node(image_publisher1)
+    # executor.add_node(image_publisher0)
+    # executor.add_node(image_publisher1)
 
     try:
         executor.spin()
@@ -50,8 +50,8 @@ def main(args=None):
         sensor_publisher.stop_bag_reader()
         position_publisher.destroy_node()
         imu_publisher.destroy_node()
-        image_publisher0.destroy_node()
-        image_publisher1.destroy_node()
+        # image_publisher0.destroy_node()
+        # image_publisher1.destroy_node()
         rclpy.shutdown()
 
 if __name__ == '__main__':
