@@ -25,11 +25,13 @@
 #include "geometry_msgs/msg/pose.hpp"
 #include "geometry_msgs/msg/pose_stamped.hpp"
 #include "nav_msgs/msg/path.hpp"
+#include "std_msgs/msg/header.hpp"
 
 struct IMUdata {
   geometry_msgs::msg::Vector3 linear_acceleration;
   geometry_msgs::msg::Vector3 angular_velocity;
   geometry_msgs::msg::Quaternion orientation;
+  std_msgs::msg::Header header;
 };
 
 class counterSubscriber : public rclcpp::Node
@@ -72,6 +74,10 @@ class PositionSubscriber : public rclcpp::Node
     dataCache<geometry_msgs::msg::Point> positionCache;
     void pathCallback(const geometry_msgs::msg::PointStamped &msg);
     std::string publisher_topicName;
+    float totalMessagesSubscribed = 0;
+    float totalMessagesPublished = 0;
+    nav_msgs::msg::Path path;
+    std::string frame_id = "map";
 
   private:
     rclcpp::Subscription<geometry_msgs::msg::PointStamped>::SharedPtr subscription_;

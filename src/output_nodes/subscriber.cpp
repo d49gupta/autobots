@@ -16,6 +16,7 @@ ImuSubscriber::ImuSubscriber(std::string nodeName, int size, std::string topicNa
     imu_data.linear_acceleration = msg->linear_acceleration;
     imu_data.angular_velocity = msg->angular_velocity;
     imu_data.orientation = msg->orientation;
+    imu_data.header = msg->header;
     imuHashMap.add(msg->header.stamp, imu_data);
 
     // RCLCPP_INFO(this->get_logger(), "IMU data received on topic %s", topic.c_str());
@@ -45,6 +46,7 @@ PositionSubscriber::PositionSubscriber(std::string nodeName, int size, std::stri
   auto topic_callback =
   [this, subscriber_topicName = subscriber_topicName](geometry_msgs::msg::PointStamped::UniquePtr msg) -> void {
     RCLCPP_INFO(this->get_logger(), "Position data received on topic %s", subscriber_topicName.c_str());
+    this->totalMessagesSubscribed += 1;
     pathCallback(*msg);
   };
   subscription_ = this->create_subscription<geometry_msgs::msg::PointStamped>(subscriber_topicName, 10, topic_callback);
@@ -54,14 +56,18 @@ void PositionSubscriber::pathCallback(const geometry_msgs::msg::PointStamped &ms
     IMUdata imu_data = this->imuHashMap.getNewest(msg.header.stamp);
     if (imuHashMap.foundHash != false)
     {
-      //make and publish pose to visualize in rviz
-      // this->publisher_->publish(imu_data);
-      RCLCPP_INFO(this->get_logger(), "Path data published on topic %s", this->publisher_topicName.c_str());
-    }
-    else
-    {
-      //dont send this data if imu data not found
-      RCLCPP_INFO(this->get_logger(), "Path NOT data published on topic %s", this->publisher_topicName.c_str());
+      geometry_msgs::msg::PoseStamped curr_pose;
+      curr_pose.header = msg.header;
+      curr_pose.header.frame_id = this->frame_id;
+      curr_pose.pose.orientation = imu_data.orientation;
+      curr_pose.pose.position = msg.point;
+      this->path.header = curr_pose.header;
+      this->path.header.frame_id = this->frame_id;
+      this->path.poses.push_back(curr_pose);
+
+      this->publisher_->publish(this->path);
+      this->totalMessagesPublished += 1;
+      RCLCPP_INFO(this->get_logger(), "Path data published on topic %s with %f accuracy", this->publisher_topicName.c_str(), (totalMessagesPublished / totalMessagesSubscribed));
     }
 }
 

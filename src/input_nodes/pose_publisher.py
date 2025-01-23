@@ -5,17 +5,17 @@ from geometry_msgs.msg import Pose
 from RosBagInterpreter import sensorData
 from nav_msgs.msg import Path
 
-class PositionPublisher(Node):
+class PosePublisher(Node):
     def __init__(self, sensorData, nodeName, topicName):
         super().__init__(nodeName)
         self.publisher = self.create_publisher(Path, topicName, 10)
-        self.timer = self.create_timer(0.05, self.publish_position)
+        self.timer = self.create_timer(0.05, self.publish_pose)
         self.sensorData = sensorData
         self.lastSequence = 0
         self.path = Path()
         self.frame_id = "map"
 
-    def publish_position(self):
+    def publish_pose(self):
         data = self.sensorData.getSensorData(self.sensorData.position_topic)
         if data != False and data.header.seq != self.lastSequence:
             pose_stamped_msg = PoseStamped()
@@ -42,8 +42,8 @@ def main(args=None):
     sensor_publisher = sensorData()
     sensor_publisher.start_bag_reader()
     
-    position_publisher = PositionPublisher(sensor_publisher, "position_publisher", "pose_topic")
-    executor.add_node(position_publisher)
+    pose_publisher = PosePublisher(sensor_publisher, "pose_publisher", "pose_topic_test")
+    executor.add_node(pose_publisher)
 
     try:
         executor.spin()
@@ -51,7 +51,7 @@ def main(args=None):
         pass
     finally:
         sensor_publisher.stop_bag_reader()
-        position_publisher.destroy_node()
+        pose_publisher.destroy_node()
         rclpy.shutdown()
 
 if __name__ == '__main__':

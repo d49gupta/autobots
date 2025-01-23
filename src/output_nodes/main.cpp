@@ -19,8 +19,8 @@ int main(int argc, char * argv[])
   // auto counter_subscriber = std::make_shared<counterSubscriber>("counter_subscriber", 25, "counter_topic");
   // auto sensor_fusion_subscriber = std::make_shared<AlphaBetaFilter>(first_subscriber, second_subscriber, 0.1, 0.2, 0.005);'
   
-  auto imu_subscriber = std::make_shared<ImuSubscriber>("imu_subscriber", 25, "imu_topic", 1);
-  auto position_subscriber = std::make_shared<PositionSubscriber>("position_subscriber", 25, "position_topic", "pose_topic", imu_subscriber->imuHashMap);
+  auto imu_subscriber = std::make_shared<ImuSubscriber>("imu_subscriber", 25, "imu_topic", 2);
+  auto position_subscriber = std::make_shared<PositionSubscriber>("position_subscriber", 25, "position_topic", "test_topic", imu_subscriber->imuHashMap);
   // auto camera0_subscriber = std::make_shared<ImageSubscriber>("image_subsciber1", 25, "image_topic0");
   // auto camera1_subscriber = std::make_shared<ImageSubscriber>("image_subsciber0", 25, "image_topic1");
 
